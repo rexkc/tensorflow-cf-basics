@@ -1,43 +1,29 @@
 // Required modules
 var http = require('http');
 var url = require('url');
-
 var tf = require('@tensorflow/tfjs');
 
 var express = require('express');
 var app = express();
 
-
 bodyParser = require('body-parser'),
-  app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: __dirname });
-  // const values = [];
-  // for (let i=0;i<15;i++){
-  //   values[i] = Math.random()*100;
-  // }
-  // const shape = [5,3];
-  // const myData =tf.tensor2d(values,shape);
-
-  // const myVar = tf.variable(myData);
-
-  // myData.print();
-  // console.log(myVar);
-
-});
+// app.get('/', function (req, res) {
+//   res.sendFile('index.html', { root: __dirname });
+// });
 
 app.post('/submit', function (req, res) {
   //Vectors from form
   var vector1 = req.body.firstVector;
   var vector2 = req.body.secondVector;
-  console.log(req.body.firstVector);
+
   // Define a model for linear regression.
   const model = tf.sequential();
-  model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+  model.add(tf.layers.dense({units: 1, inputShape: [1]}));
 
   // Prepare the model for training: Specify the loss and the optimizer.
-  model.compile({ loss: 'meanSquaredError', optimizer: 'sgd' });
+  model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
 
   // Generate some synthetic data for training.
   // // Evaluate form input to 2d Tensors
@@ -57,7 +43,6 @@ app.post('/submit', function (req, res) {
     res.end('predicting the next value from\n' + xs + '\n and\n' + ys + '\n gives us\n' + model.predict(tf.tensor2d([5], [1, 1])));
     // }).listen(8080);
   });
-
 });
 
 
