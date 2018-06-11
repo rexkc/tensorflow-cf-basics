@@ -13,7 +13,7 @@ bodyParser = require('body-parser'),
   app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html');
+  res.sendFile('index.html', { root: __dirname });
 });
 
 app.post('/submit', function (req, res) {
@@ -37,7 +37,7 @@ app.post('/submit', function (req, res) {
   console.log(y_temp);
 
   // Train the model using the data.
-  model.fit(x_temp, y_temp, { batchSize: 4, epochs: 15 }).then(() => {
+  model.fit(x_temp, y_temp, { batchSize: 4, epochs: 5 }).then(() => {
     // Use the model to do inference on a data point the model hasn't seen before:
     // model.predict(tf.tensor2d([xlength+1], [1, 1])).print();
     res.writeHead(200, { 'Content-Type': 'text/plain' });

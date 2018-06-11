@@ -2,4 +2,4 @@
 applications:
  - name: TF-Basic
    random-route: true
-   memory: 1024M
+   memory: 128M
