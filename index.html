@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>basic prediction app</title>
+    <!-- Bootstrap -->
+    <link href="node_modules/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="node_modules/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="node_modules/angular-datetime-range/dist/datetime-range.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="node_modules/gentelella/build/css/custom.min.css" rel="stylesheet">
+    <!-- Angular JS Material -->
+    <link href="node_modules/angular-material/angular-material.min.css" rel="stylesheet">
+    <!-- Custom Siemens Theme -->
+    <link href="styles/siemens-theme.css" rel="stylesheet">
 </head>
+
 <body>
     <form action="/submit" method="post">
-        First Vector: <input name="firstVector" type="text" /> <br />
-        Last Vector: <input name="secondVector" type="text" /> <br />
+        First Vector:
+        <input name="firstVector" type="text" />
+        <br /> Last Vector:
+        <input name="secondVector" type="text" />
+        <br />
         <input type="submit" />
     </form>
-    </body>
+
+    <!-- MindSphere OS bar -->
+    <script src="https://static.eu1.mindsphere.io/osbar/js/main.min.js"></script>
+    <script>
+        _msb.init({
+            title: "WebApp - Aggregated Timeseries",
+            appId: "_mscontent"
+        });
+    </script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="node_modules/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>

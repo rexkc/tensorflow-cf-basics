@@ -1,5 +1,5 @@
 ---
 applications:
- - name: TF-Basic
+ - name: tensorflow-basic
    random-route: true
    memory: 128M

@@ -12,6 +12,12 @@ var port = appEnv.port || 6016;
 bodyParser = require('body-parser'),
   app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.get('/', function (req, res) {
   res.sendFile('index.html', { root: __dirname });
 });
@@ -37,7 +43,7 @@ app.post('/submit', function (req, res) {
   console.log(y_temp);
 
   // Train the model using the data.
-  model.fit(x_temp, y_temp, { batchSize: 4, epochs: 5 }).then(() => {
+  model.fit(x_temp, y_temp, { batchSize: 4, epochs: 30 }).then(() => {
     // Use the model to do inference on a data point the model hasn't seen before:
     // model.predict(tf.tensor2d([xlength+1], [1, 1])).print();
     res.writeHead(200, { 'Content-Type': 'text/plain' });
