@@ -6,23 +6,31 @@ var appEnv = cfenv.getAppEnv();
 
 var express = require('express');
 var app = express();
+var session = require('express-session');
+
+var csrf = require('csurf');
+var cookieParser = require('cookie-parser');
+var csrfProtection = csrf({ cookie: true });
+
+var bodyParser = require('body-parser')
+var parseForm = bodyParser.urlencoded({ extended: false })
 
 var port = appEnv.port || 6016;
 
-bodyParser = require('body-parser'),
-  app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cookieParser());
+app.use(session({secret: "Shh, its a secret!"}));
+app.use(csrf());
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.cookie('XSRF-TOKEN', req.csrfToken());
+  res.locals.csrftoken = req.csrfToken();
   next();
 });
 
-app.get('/', function (req, res) {
-  res.sendFile('index.html', { root: __dirname });
+app.get('/', csrfProtection, function (req, res) {
+  res.sendFile('index.html', { root: __dirname});
 });
 
-app.post('/submit', function (req, res) {
+app.post('/submit', parseForm, csrfProtection, function (req, res) {
   //Vectors from form
   var vector1 = req.body.firstVector;
   var vector2 = req.body.secondVector;
@@ -51,6 +59,24 @@ app.post('/submit', function (req, res) {
   });
 
 });
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// // error handler
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+//
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.send('error');
+// });
 
 app.listen(port, function () {
   console.log('server starting on ' + port);

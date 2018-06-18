@@ -19,7 +19,22 @@
 </head>
 
 <body>
+  <!-- MindSphere OS bar -->
+  <div id="_mscontent">
+    <app-root></app-root>
+  </div>
+</body>
+<script src="https://static.eu1.mindsphere.io/osbar/js/main.min.js"></script>
+  <script type="text/javascript">
+    _msb.init({
+      title: "Prediction App",
+      appId: "_mscontent"
+    });
+  </script>
+
+  <!-- form for input of vectors -->
     <form action="/submit" method="post">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
         First Vector:
         <input name="firstVector" type="text" />
         <br /> Last Vector:
@@ -28,14 +43,7 @@
         <input type="submit" />
     </form>
 
-    <!-- MindSphere OS bar -->
-    <script src="https://static.eu1.mindsphere.io/osbar/js/main.min.js"></script>
-    <script>
-        _msb.init({
-            title: "WebApp - Aggregated Timeseries",
-            appId: "_mscontent"
-        });
-    </script>
+
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="node_modules/gentelella/vendors/jquery/dist/jquery.min.js"></script>
